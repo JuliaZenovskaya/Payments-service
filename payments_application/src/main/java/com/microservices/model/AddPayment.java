@@ -10,12 +10,11 @@ import javax.validation.constraints.NotNull;
 @Setter
 @ToString
 public class AddPayment {
-    @NotNull
-    public String status;
+    public PaymentStatus status;
     @NotNull
     public int orderId;
 
-    public AddPayment(@NotNull String status, @NotNull int orderId) {
+    public AddPayment(PaymentStatus status, @NotNull int orderId) {
         this.status = status;
         this.orderId = orderId;
     }

@@ -2,6 +2,7 @@ package com.microservices.controller;
 
 import com.microservices.model.AddPayment;
 import com.microservices.model.Payment;
+import com.microservices.model.PaymentStatus;
 import com.microservices.service.PaymentService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("payments")
+//@RequestMapping("payments")
 public class PaymentController {
     private PaymentService paymentService;
     private static final Logger log = Logger.getLogger(PaymentController.class);
@@ -23,10 +24,11 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-    @PostMapping
+    @PostMapping (value = "orders/{order_id}/payment")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addNewPayment(@Valid @RequestBody AddPayment addPayment) {
+    public void addNewPayment(@RequestParam PaymentStatus status, @PathVariable int order_id) {
         try {
+            AddPayment addPayment = new AddPayment(status, order_id);
             paymentService.addPayment(addPayment);
             log.info("New payment was added: " + addPayment.toString());
         } catch (SQLException e) {
@@ -34,7 +36,7 @@ public class PaymentController {
         }
     }
 
-    @GetMapping
+    @GetMapping (value = "payments")
     public ArrayList<Payment> showAllPayments() {
         try {
             ArrayList<Payment> temp = paymentService.showAllPayments();
@@ -46,7 +48,7 @@ public class PaymentController {
         }
     }
 
-    @GetMapping(value = "id/{id}")
+    @GetMapping(value = "payments/{id}")
     public Payment getItemById (@PathVariable int id) {
         try {
             Payment temp = paymentService.getPaymentById(id);
@@ -58,7 +60,7 @@ public class PaymentController {
         }
     }
 
-    @GetMapping(value = "{orderId}")
+    @GetMapping(value = "orders/{orderId}/payment")
     public ArrayList<Payment> getPaymentsByOrderId(@PathVariable int orderId) {
         try {
             ArrayList<Payment> temp =  paymentService.getPaymentsByOrderId(orderId);

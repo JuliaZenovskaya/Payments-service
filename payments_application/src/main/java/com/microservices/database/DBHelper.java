@@ -2,6 +2,7 @@ package com.microservices.database;
 
 import com.microservices.model.AddPayment;
 import com.microservices.model.Payment;
+import com.microservices.model.PaymentStatus;
 import com.mysql.fabric.jdbc.FabricMySQLDriver;
 
 import java.sql.*;
@@ -47,7 +48,7 @@ public class DBHelper {
 
         if (rs != null) {
             while (rs.next()){
-                Payment payment = new Payment(rs.getInt(ID), rs.getString(STATUS), rs.getInt(ORDER));
+                Payment payment = new Payment(rs.getInt(ID), PaymentStatus.valueOf(rs.getString(STATUS)), rs.getInt(ORDER));
                 payments.add(payment);
             }
         }
