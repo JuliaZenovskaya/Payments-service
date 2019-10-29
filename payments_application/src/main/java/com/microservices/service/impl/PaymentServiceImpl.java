@@ -2,6 +2,7 @@ package com.microservices.service.impl;
 
 import com.microservices.database.DBHelper;
 import com.microservices.model.AddPayment;
+import com.microservices.model.OrderDTO;
 import com.microservices.model.Payment;
 import com.microservices.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public void addPayment(AddPayment addPayment) throws SQLException {
-        dbHelper.createPayment(addPayment);
+    public OrderDTO addPayment(AddPayment addPayment) throws SQLException {
+        return dbHelper.createPayment(addPayment);
     }
 }

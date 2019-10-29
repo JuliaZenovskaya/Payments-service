@@ -1,6 +1,7 @@
 package com.microservices.controller;
 
 import com.microservices.model.AddPayment;
+import com.microservices.model.OrderDTO;
 import com.microservices.model.Payment;
 import com.microservices.model.PaymentStatus;
 import com.microservices.service.PaymentService;
@@ -26,13 +27,14 @@ public class PaymentController {
 
     @PostMapping (value = "orders/{order_id}/payment")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addNewPayment(@RequestParam PaymentStatus status, @PathVariable int order_id) {
+    public OrderDTO addNewPayment(@RequestParam PaymentStatus status, @PathVariable int order_id) {
         try {
             AddPayment addPayment = new AddPayment(status, order_id);
-            paymentService.addPayment(addPayment);
             log.info("New payment was added: " + addPayment.toString());
+            return paymentService.addPayment(addPayment);
         } catch (SQLException e) {
             log.error("Error with adding the payment: " + e.toString());
+            return null;
         }
     }
 

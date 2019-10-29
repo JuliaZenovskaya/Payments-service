@@ -1,6 +1,7 @@
 package com.microservices.database;
 
 import com.microservices.model.AddPayment;
+import com.microservices.model.OrderDTO;
 import com.microservices.model.Payment;
 import com.microservices.model.PaymentStatus;
 import com.mysql.fabric.jdbc.FabricMySQLDriver;
@@ -31,13 +32,14 @@ public class DBHelper {
         }
     }
 
-    public void createPayment(AddPayment addPayment) throws SQLException {
+    public OrderDTO createPayment(AddPayment addPayment) throws SQLException {
         getConnection();
         Statement statement = connection.createStatement();
         String sql = "INSERT INTO " + TABLE_NAME + " (" + STATUS + "," + ORDER + ") VALUES ('" +
                 addPayment.status + "'," + addPayment.orderId + ");";
         statement.execute(sql);
         connection.close();
+        return new OrderDTO(addPayment.orderId);
     }
 
     private ArrayList<Payment> getItems(String sql) throws SQLException {
