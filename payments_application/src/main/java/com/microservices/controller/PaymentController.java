@@ -10,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 @RestController
-//@RequestMapping("payments")
 public class PaymentController {
     private PaymentService paymentService;
     private static final Logger log = Logger.getLogger(PaymentController.class);

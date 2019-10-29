@@ -11,11 +11,13 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class Payment {
     @NotNull
+    private
     int id;
 
-    PaymentStatus status;
+    private PaymentStatus status;
 
     @NotNull
+    private
     int orderID;
 
     public Payment(@NotNull int id, PaymentStatus status, @NotNull int orderID) {

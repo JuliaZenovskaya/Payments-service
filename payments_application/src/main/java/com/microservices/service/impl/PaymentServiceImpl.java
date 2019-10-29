@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
-    DBHelper dbHelper;
+    private DBHelper dbHelper;
 
     @Autowired
     public PaymentServiceImpl(){

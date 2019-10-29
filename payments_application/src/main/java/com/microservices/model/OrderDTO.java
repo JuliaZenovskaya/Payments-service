@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class OrderDTO {
     @NotNull
-    int order_id;
+    private int order_id;
 
     public OrderDTO(@NotNull int order_id) {
         this.order_id = order_id;

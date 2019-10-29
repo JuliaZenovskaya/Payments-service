@@ -21,7 +21,7 @@ public class DBHelper {
     private static Connection connection;
 
 
-    public void getConnection() {
+    private void getConnection() {
         try {
             Driver driver = new FabricMySQLDriver();
             DriverManager.registerDriver(driver);
@@ -46,7 +46,7 @@ public class DBHelper {
         getConnection();
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);
-        ArrayList<Payment> payments= new ArrayList<Payment>();
+        ArrayList<Payment> payments= new ArrayList<>();
 
         if (rs != null) {
             while (rs.next()){
