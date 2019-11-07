@@ -1,9 +1,6 @@
 package com.microservices.controller;
 
-import com.microservices.model.AddPayment;
-import com.microservices.model.OrderDTO;
-import com.microservices.model.Payment;
-import com.microservices.model.PaymentStatus;
+import com.microservices.model.*;
 import com.microservices.service.PaymentService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +26,11 @@ public class PaymentController {
         try {
             AddPayment addPayment = new AddPayment(status, order_id);
             log.info("New payment was added: " + addPayment.toString());
+            if (status == PaymentStatus.Unauthorized) {
+                paymentService.send(new StatusDTO(order_id, OrderStatus.FAILED));
+            } else {
+                paymentService.send(new StatusDTO(order_id, OrderStatus.PAID));
+            }
             return paymentService.addPayment(addPayment);
         } catch (SQLException e) {
             log.error("Error with adding the payment: " + e.toString());
