@@ -20,7 +20,7 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-    @PostMapping (value = "orders/{order_id}/payment")
+    @PostMapping (value = "orders/{order_id}/payments")
     @ResponseStatus(HttpStatus.CREATED)
     public OrderDTO addNewPayment(@RequestParam PaymentStatus status, @PathVariable int order_id) {
         try {
@@ -51,7 +51,7 @@ public class PaymentController {
     }
 
     @GetMapping(value = "payments/{id}")
-    public Payment getItemById (@PathVariable int id) {
+    public Payment getPaymentById (@PathVariable int id) {
         try {
             Payment temp = paymentService.getPaymentById(id);
             log.info("Payment with id = " + id + " was found");
@@ -62,7 +62,7 @@ public class PaymentController {
         }
     }
 
-    @GetMapping(value = "orders/{orderId}/payment")
+    @GetMapping (value = "payments/order/{orderId}")
     public ArrayList<Payment> getPaymentsByOrderId(@PathVariable int orderId) {
         try {
             ArrayList<Payment> temp =  paymentService.getPaymentsByOrderId(orderId);
